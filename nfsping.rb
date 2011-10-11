@@ -10,6 +10,21 @@
 
 require 'socket'
 
+# Add methods to Enumerable, which makes them available to Array
+module Enumerable
+ 
+	#  sum of an array of numbers
+	def sum
+		return self.inject(0){|acc,i|acc +i}
+	end
+ 
+	#  average of an array of numbers
+	def average
+		return self.sum/self.length.to_f
+	end
+ 
+end  #  module Enumerable
+
 # Name of the script
 MY_NAME = File.basename(__FILE__)
 
@@ -60,3 +75,19 @@ unless File.exist?(NFSPING) && File.executable?(NFSPING)
 end
 
 # Run nfsping and collect the results
+output = `#{NFSPING} -C #{NUM_TRIES} -q #{nfs_server} 2>&1`
+if $? != 0
+	exit 0
+end
+
+# Take the output and generate an array with all of the numbers converted to
+# float.
+values = []
+output.split(':')[1].strip.split().each do |value|
+	values << value.to_f
+end
+
+puts "min.value #{values.min}"
+puts "max.value #{values.max}"
+puts "avg.value #{values.average}"
+
