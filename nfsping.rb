@@ -13,8 +13,8 @@ require 'socket'
 # Name of the script
 MY_NAME = File.basename(__FILE__)
 
-# Output the basic config details
-
+# Number of tries to pass to nfsping
+NUM_TRIES = 10
 
 # Check to see if the nfs server is specified, otherwise exit.
 if MY_NAME =~ /_/
@@ -31,3 +31,20 @@ rescue
 	puts "ERROR: NFS server cannot be resolved"
 	exit -1
 end
+
+# Output the basic config details
+if ARGV[0] == 'config'
+	puts "graph_title #{nfs_server} - NFS Latency"
+	puts "graph_vlabel ms"
+	puts "graph_category nfs"
+	puts "avg.label avg"
+	puts "min.label min"
+	puts "max.label max"
+
+	puts "graph_info NFS latency using the nfsping utility"
+	puts "avg.info Average over #{NUM_TRIES} tries"
+	puts "min.info Minimum over #{NUM_TRIES} tries"
+	puts "max.info Maximum over #{NUM_TRIES} tries"
+	exit 0
+end
+
