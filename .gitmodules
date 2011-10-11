@@ -1,0 +1,3 @@
+[submodule "src/NFSping"]
+	path = src/NFSping
+	url = https://github.com/mprovost/NFSping.git
