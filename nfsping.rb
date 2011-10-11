@@ -13,8 +13,13 @@ require 'socket'
 # Name of the script
 MY_NAME = File.basename(__FILE__)
 
+### The constants set below should probably end up in a config file somewhere
+
 # Number of tries to pass to nfsping
 NUM_TRIES = 10
+
+# Location of the nfsping binary
+NFSPING = '/home/cwebber/src/NFSping/src/nfsping' 
 
 # Check to see if the nfs server is specified, otherwise exit.
 if MY_NAME =~ /_/
@@ -48,3 +53,10 @@ if ARGV[0] == 'config'
 	exit 0
 end
 
+# Check for nfsping existing and being executable
+unless File.exist?(NFSPING) && File.executable?(NFSPING)
+	puts "ERROR: #{NFSPING} does not exist or is not executable"
+	exit -1
+end
+
+# Run nfsping and collect the results
