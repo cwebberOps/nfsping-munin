@@ -34,7 +34,7 @@ MY_NAME = File.basename(__FILE__)
 NUM_TRIES = 10
 
 # Location of the nfsping binary
-NFSPING = '/home/cwebber/src/NFSping/src/nfsping' 
+NFSPING = '/usr/local/bin/nfsping'
 
 # Check to see if the nfs server is specified, otherwise exit.
 if MY_NAME =~ /_/
